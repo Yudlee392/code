@@ -1,4 +1,18 @@
 <h1 class="text-center mb-4">Manage Submissions {{facultyName}}</h1>
+
+<form action="/coordinator/submission/filter" method="GET">
+  <label for="status">Status:</label>
+  <select name="status" id="status">
+    <option value="">All</option>
+    <option value="pending">Pending</option>
+    <option value="approved">Approved</option>
+    <option value="rejected">Rejected</option>
+  </select>
+
+  <label for="search">Search:</label>
+  <input type="text" name="search" id="search">
+
+  <button type="submit">Apply Filters</button>
 <div class="row">
     <div class="col-md-12">
         <!-- Table for viewing all submissions -->
@@ -41,3 +55,4 @@
         </div>
     </div>
 </div>
+</form>

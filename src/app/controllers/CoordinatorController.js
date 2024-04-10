@@ -58,7 +58,50 @@ class CoordinatorController {
             next(error);
         }
     }
-
+    
+    async filterSubmissions(req, res, next) {
+        try {
+          const facultyId = req.facultyId;
+          const { status, search } = req.query;
+      
+          // Retrieve the faculty associated with the coordinator
+          const faculty = await Faculty.findById(facultyId);
+      
+          // Define magazineIds based on your application logic
+          const magazineIds = await Magazine.find({ faculty: facultyId }).distinct('_id');
+      
+          const filters = { magazine: { $in: magazineIds } };
+      
+          if (status && status !== 'all') {
+            filters.status = new RegExp(status, 'i'); // Case-insensitive comparison for status
+          }
+      
+          console.log('Filters:', filters); // Add this line to log the filters
+      
+          if (search) {
+            filters.$or = [
+              { 'student.fullName': { $regex: search, $options: 'i' } },
+              { title: { $regex: search, $options: 'i' } },
+            ];
+          }
+      
+          const submissions = await Submission.find(filters)
+            .populate('student')
+            .populate('magazine')
+            .sort({ dateSubmitted: -1 })
+            .lean();
+      
+          console.log('Filtered Submissions:', submissions);
+      
+          res.render('submission/viewForCoordinator', {
+            facultyName: faculty.name,
+            authen: 'coordinator',
+            submissions: submissions,
+          });
+        } catch (error) {
+          next(error);
+        }
+      }
 }
 
 module.exports = new CoordinatorController();
