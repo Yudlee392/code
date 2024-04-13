@@ -1,21 +1,83 @@
-<div class="mt-4">
-    <h1>DAY LA H1</h1>
-    <div class="row">
-        {{#each courses}}
-        <div class="col-sm-6 col-lg-4">
-            <div class="card card-course-item">
-                <a href="/courses/{{slug}}">
-                    <img class="card-img-top" src="{{image}}" alt="{{image}}">
-                </a>
-                <div class="card-body">
-                    <a href="/courses/{{slug}}">
-                        <h5 class="card-title">{{name}}</h5>
-                    </a>
-                    <p class="card-text">{{description}}</p>
-                    <a href="#" class="btn btn-primary">Buy this</a>
-                </div>
-            </div>
-        </div>
-        {{/each}}
+<div class="container mt-4">
+  <h1 class="text-center mb-4 text-primary font-weight-bolder">Student
+    Contribution System</h1>
+  <section class="row d-flex justify-content-around">
+    <div class="col-md-5 border border-primary rounded p-3 mb-3">
+      <h2>What We Offer</h2>
+      <p>Our role-based system provides a platform for students to actively
+        contribute to their learning environment. Through our web-based
+        interface, students can:</p>
+      <ul class="list-unstyled">
+        <li>
+          <span class="badge bg-success me-2">✓</span>
+          Submit assignments
+        </li>
+        <li>
+          <span class="badge bg-primary me-2">✓</span>
+          Participate in discussions
+        </li>
+        <li>
+          <span class="badge bg-warning me-2">✓</span>
+          Share resources and insights
+        </li>
+        <li>
+          <span class="badge bg-danger me-2">✓</span>
+          Collaborate with peers and instructors
+        </li>
+      </ul>
     </div>
+    <div class="col-md-5 border border-primary rounded p-3 mb-3">
+      <h2>Why Choose Us</h2>
+      <p>We understand the importance of student engagement and collaboration in
+        the educational process. Here's why our system stands out:</p>
+      <ul class="list-unstyled">
+        <li>
+          <span class="badge bg-success me-2">✓</span>
+          Customizable role-based access control
+        </li>
+        <li>
+          <span class="badge bg-primary me-2">✓</span>
+          Intuitive user interface for seamless navigation
+        </li>
+        <li>
+          <span class="badge bg-warning me-2">✓</span>
+          Robust security measures to protect student data
+        </li>
+        <li>
+          <span class="badge bg-danger me-2">✓</span>
+          Scalable architecture to accommodate growing user base
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="row">
+    {{#each courses}}
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-course-item">
+          <a href="/courses/{{slug}}">
+            <img class="card-img-top" src="{{image}}" alt="{{image}}" />
+          </a>
+          <div class="card-body">
+            <a href="/courses/{{slug}}">
+              <h5 class="card-title">{{name}}</h5>
+            </a>
+            <p class="card-text">{{description}}</p>
+            <a href="#" class="btn btn-primary"><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-view-list mr-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2m0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14"
+                />
+              </svg>View</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 </div>

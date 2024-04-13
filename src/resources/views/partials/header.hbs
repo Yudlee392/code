@@ -6,10 +6,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      {{!-- <li class="nav-item{{#if (eq activePage 'home')}} active{{/if}}">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li> --}}
-
       {{!-- for Admin --}}
       {{#if (eq authen 'admin')}}
       <li class="nav-item {{#if (eq activePage 'academic')}} active{{/if}}">
@@ -40,16 +36,21 @@
       {{/if}}
 
     </ul>
-    <form class="form-inline my-2 my-lg-0 d-flex">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      {{#if authen}}
-      <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit">Search</button>
-      <div class="flex-grow-1"></div>
-      <a class="btn btn-outline-success my-2 my-sm-0 ml-2" href="/logout">Logout</a>
-      {{else}}
-      <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit">Search</button>
-      <a class="btn btn-outline-success my-2 my-sm-0 ml-2" href="/login">Login</a>
-      {{/if}}
-    </form>
+   <form class="form-inline my-2 my-lg-0 d-flex">
+  <div class="input-group">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+   <div class="input-group-append">
+  <button class="btn btn-outline-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart-fill" viewBox="0 0 16 16">
+  <path d="M6.5 13a6.47 6.47 0 0 0 3.845-1.258h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1A6.47 6.47 0 0 0 13 6.5 6.5 6.5 0 0 0 6.5 0a6.5 6.5 0 1 0 0 13m0-8.518c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
+</svg></button>
+</div>
+
+  </div>
+  {{#if authen}}
+  <a class="btn btn-success my-2 my-sm-0 ml-2" href="/logout">Logout</a>
+  {{else}}
+  <a class="btn btn-primary my-2 my-sm-0 ml-2" href="/login">Login</a>
+  {{/if}}
+</form>
   </div>
 </nav>
