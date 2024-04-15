@@ -1,0 +1,168 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Submission Per Year</h1>
+    <!-- First Chart - Line Chart -->
+    <div>
+        <canvas id="submissionChart" width="800" height="400"></canvas>
+    </div>
+
+    <!-- Second Chart - 100% Stacked Column Graph -->
+    <h1>Percentage of Contributions by Faculty</h1>
+    <div>
+        <canvas id="facultyPercentageChart" width="800" height="400"></canvas>
+    </div>
+
+    <!-- Third Chart - Number of Contributors by Faculty and Academic Year -->
+    <h1>Number of Contributors by Faculty and Academic Year</h1>
+    <div>
+        <canvas id="contributorsChart" width="800" height="400"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const chartData = {{{json chartData}}}; // Parse the JSON string into JavaScript object
+
+            // Extract unique academic years
+            const academicYears = Array.from(new Set(chartData.map(data => data.academicYear)));
+
+            // Extract unique faculties
+            const faculties = Array.from(new Set(chartData.map(data => data.faculty)));
+
+            // Initialize data structure for first chart (Line Chart)
+            const lineChartDataSet = [];
+            for (const faculty of faculties) {
+                const data = academicYears.map(year => {
+                    const entry = chartData.find(d => d.faculty === faculty && d.academicYear === year);
+                    return entry ? entry.totalSubmissions : 0;
+                });
+                lineChartDataSet.push({ label: faculty, data: data });
+            }
+
+            // Render first chart (Line Chart) using Chart.js
+            const ctx1 = document.getElementById('submissionChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: academicYears,
+                    datasets: lineChartDataSet
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Initialize data structure for second chart (100% Stacked Column Graph)
+            const facultyPercentageData = faculties.map(faculty => {
+                const facultyData = academicYears.map(year => {
+                    const facultyTotal = chartData.filter(d => d.faculty === faculty && d.academicYear === year).reduce((total, d) => total + d.totalSubmissions, 0);
+                    const yearTotal = chartData.filter(d => d.academicYear === year).reduce((total, d) => total + d.totalSubmissions, 0);
+                    return (yearTotal === 0) ? 0 : (facultyTotal / yearTotal * 100).toFixed(2);
+                });
+                return {
+                    label: faculty,
+                    data: facultyData
+                };
+            });
+
+            // Render second chart (100% Stacked Column Graph) using Chart.js
+            const ctx2 = document.getElementById('facultyPercentageChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: academicYears,
+                    datasets: facultyPercentageData.map((faculty, index) => ({
+                        label: faculty.label,
+                        data: faculty.data,
+                        backgroundColor: `hsla(${(index * (360 / facultyPercentageData.length))}, 100%, 50%, 0.5)`,
+                        borderColor: `hsla(${(index * (360 / facultyPercentageData.length))}, 100%, 50%, 1)`,
+                        borderWidth: 1
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + "%";
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Percentage of Contributions by Faculty'
+                        }
+                    }
+                }
+            });
+  // Initialize data structure for third chart (Number of Contributors by Faculty and Academic Year)
+            const contributorsData = faculties.map(faculty => {
+                const facultyData = academicYears.map(year => {
+                    const entry = chartData.find(d => d.faculty === faculty && d.academicYear === year);
+                    return entry ? entry.uniqueStudents : 0;
+                });
+                return {
+                    label: faculty,
+                    data: facultyData
+                };
+            });
+
+            // Render third chart (Number of Contributors by Faculty and Academic Year) using Chart.js
+            const ctx3 = document.getElementById('contributorsChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: academicYears,
+                    datasets: contributorsData.map((faculty, index) => ({
+                        label: faculty.label,
+                        data: faculty.data,
+                        fill: false,
+                        borderColor: `hsla(${(index * (360 / contributorsData.length))}, 100%, 50%, 1)`,
+                        borderWidth: 2
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Number of Contributors by Faculty and Academic Year'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>

@@ -11,5 +11,6 @@ router.get('/academic/:id/edit', academicYearController.edit);
 
 router.post('/academic/:id/update', academicYearController.update);
 
+router.get("/academic/chart", academicYearController.chart);
 
 module.exports = router;

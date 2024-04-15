@@ -40,6 +40,8 @@
                         <div class="form-group">
                             <label for="facultyId">Faculty:</label>
                             <select id="facultyId" name="facultyId" class="form-control">
+                                <option value="">Select Faculty</option>
+
                                 {{#each faculties }}
                                 <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}

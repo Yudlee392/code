@@ -76,7 +76,7 @@ class StudentController {
                 await sendMailToCoordinator(req, coordinator.email, faculty.name, newSubmission._id);
             }
 
-            res.redirect('./create');
+            res.redirect('./view');
 
 
         } catch (error) {
