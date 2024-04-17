@@ -1,11 +1,13 @@
 <body>
-    <h1>Submissions by Faculty</h1>
+    {{!-- <h1>Submissions by Faculty</h1> --}}
             {{!-- {{#each magazines}}
                     <h2>{{this.title}}</h2>
 
                     {{/each}} --}}
-
-
+    <div class="w-full">
+    <img src="https://oecglobal.com/images/stories/PDF/University_of_Greenwich_logo.png" alt="Greenwich" class="w-60 h-30 object-cover" />
+    </div>
+    <h2 class="text-4xl font-bold text-center text-zinc-800 dark:text-white py-8">Course</h2>
    {{#each faculties}}
     <h2>{{this.name}}</h2>
     {{#each magazines}}
