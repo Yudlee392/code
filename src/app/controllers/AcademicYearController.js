@@ -21,12 +21,14 @@ class AcademicYearController {
 
   //[GET] /academic/view
   view(req, res, next) {
+    const username = req.userName;
     AcademicYear.find({})
       .then((academicYears) =>
         res.render("academicYear/view", {
           academicYears: mutipleMongooseToObjects(academicYears),
           authen: "admin",
           activePage: "academic",
+          username,
         })
       )
       .catch((error) => next(error));
@@ -40,10 +42,15 @@ class AcademicYearController {
   }
   //[GET] /:id/edit
   edit(req, res, next) {
+    const username = req.userName;
+
     AcademicYear.findById(req.params.id)
       .then((academicYear) =>
         res.render("academicYear/edit", {
           academicYear: mongoseToObject(academicYear),
+          username,
+          authen: "admin",
+
         })
       )
       .catch((error) => next(error));
@@ -56,6 +63,8 @@ class AcademicYearController {
   }
   //[POST] /chart
   async chart(req, res, next) {
+    const username = req.userName;
+
     const academicYears = await AcademicYear.find().sort({ startDate: 1 });
     const faculties = await Faculty.find();
 
@@ -119,6 +128,7 @@ class AcademicYearController {
       chartData,
       authen: "admin",
       activePage: "chart",
+      username,
     });
   }
 }

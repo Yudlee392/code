@@ -42,33 +42,51 @@
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <!-- Table for viewing all magazines -->
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
+   <div class="row mt-4">
+    <div class="col-md-12">
+        <!-- Table for viewing all magazines -->
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Academic Year</th>
+                        <th>Faculty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each magazines}}
                         <tr>
-                            <th>Title</th>
-                            <th>Academic Year</th>
-                            <th>Faculty</th>
+                            <td>{{title}}</td>
+                            <td>{{academicYear.name}}</td>
+                            <td>{{faculty.name}}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {{#each magazines}}
-                            <tr>
-                                <td>{{this.title}}</td>
-                                <td>{{this.academicYear.name}}</td>
-                                <td>{{this.faculty.name}}</td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
+<!-- Pagination -->
+<nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {{#if (gt totalPages 1)}}
+            {{#if (gt currentPage 1)}}
+            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{sub currentPage 1}}">Previous</a></li>
+            {{/if}}
+            {{#each pages}}
+            <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}"><a class="page-link"
+                    href="?page={{this}}">{{this}}</a></li>
+            {{/each}}
+            {{#if (lt currentPage totalPages)}}
+            <li class="page-item"><a class="page-link" href="?page={{add currentPage 1}}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{totalPages}}">Last</a></li>
+            {{/if}}
+            {{/if}}
+        </ul>
+    </nav>
 <script>
     function toggleAddMagazineForm() {
         var form = document.getElementById("magazineForm");

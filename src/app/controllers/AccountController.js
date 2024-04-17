@@ -10,6 +10,8 @@ const bcrypt = require("bcrypt");
 class AccountController {
   async createAccountForm(req, res) {
     try {
+      const username = req.userName;
+
       const roles = await Role.find();
       const faculties = await Faculty.find(); // Assuming Facility model is imported
       res.render("account/create", {
@@ -17,6 +19,7 @@ class AccountController {
         faculties: mutipleMongooseToObjects(faculties),
         authen: "admin",
         activePage: "account",
+        username,
       });
     } catch (error) {
       next(error);
@@ -45,6 +48,8 @@ class AccountController {
 
   //[GET] /admin/account/view
   async viewUsers(req, res, next) {
+    const username = req.userName;
+
     try {
       const [roles, faculties, users] = await Promise.all([
         Role.find(),
@@ -88,6 +93,7 @@ class AccountController {
         activePage: "account",
         roles: mutipleMongooseToObjects(roles),
         faculties: mutipleMongooseToObjects(faculties),
+        username,
       });
     } catch (error) {
       next(error);
@@ -108,6 +114,8 @@ class AccountController {
   async editAccount(req, res, next) {
     const roles = await Role.find();
     const faculties = await Faculty.find();
+    const username = req.userName;
+
 
     User.findById(req.params.id)
       .then((user) =>
@@ -115,6 +123,8 @@ class AccountController {
           user: mongoseToObject(user),
           roles: mutipleMongooseToObjects(roles),
           faculties: mutipleMongooseToObjects(faculties),
+          username,
+          authen: "admin",
         })
       )
       .catch((error) => next(error));

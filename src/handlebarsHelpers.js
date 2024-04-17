@@ -24,14 +24,31 @@ const helpers = {
     return `${year}-${month}-${day}`;
   },
   ifEquals: function (arg1, arg2, options) {
-    // console.log('arg1',arg1,'arg2',arg2,arg1 == arg2 )
+    console.log("arg1", arg1, "arg2", arg2, arg1 == arg2);
     try {
       if (arg1.toString() == arg2.toString()) {
+        console.log("good");
+
         return options.fn(this);
       }
     } catch {
       return options.inverse(this);
     }
+  },
+  sub: function (arg1, arg2) {
+    return arg1 - arg2;
+  },
+  gt: function (a, b) {
+    return a > b;
+  },
+  lt: function (a, b) {
+    return a < b;
+  },
+  add: function (a, b) {
+    return a + b;
+  },
+  eq: function (a, b) {
+    return String(a) === String(b);
   },
   isBeforeFinalClosureDate: function (finalClosureDate) {
     const currentDate = new Date();

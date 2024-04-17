@@ -1,9 +1,14 @@
 const Course= require('../models/Course')
 const {mutipleMongooseToObjects}= require('../../util/mongoose')
 const session = require('express-session');
+const Magazine = require('../models/Magazine');
+const Faculty = require('../models/Faculty');
+const Submission = require('../models/Submission');
+const { upload, bucket, admin, getCachedViewLink } = require('../../config/firebase');
+
 class SiteController {
     //[GET] /
-    index(req, res, next) {
+    async index(req, res, next) {
         var ss=req.session
         // req.session.role='khoa ko khon'
         // console.log(req.session)
@@ -13,13 +18,21 @@ class SiteController {
         //     else res.status(400).json({error: 'ERROR!!!'})
         //  })
         // res.render('home');
+        const faculties = await Faculty.find({});
 
-        Course.find({})
-            .then(courses =>res.render('home',{
+        const magazines = await Magazine.find({}) 
+        const submissions= await Submission.find({})
+        for (const submission of submissions) {
+            submission.viewImageLink = await getCachedViewLink(submission.imagePath);
+            submission.viewDocLink = await getCachedViewLink(submission.documentPath);
+
+        }
+        res.render('home',{
                 activePage: 'home',
-                courses : mutipleMongooseToObjects(courses)
-            }))
-            .catch(error => next(error))
+                magazines : mutipleMongooseToObjects(magazines),
+                submissions : mutipleMongooseToObjects(submissions),
+                faculties : mutipleMongooseToObjects(faculties)
+            })
     }
     //[GET] /search
     search(req, res) {

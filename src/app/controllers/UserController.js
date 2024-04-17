@@ -44,7 +44,7 @@ class UserController {
             // }
 
             // Create JWT token
-            const token = jwt.sign({ userId: user._id, roleId: user.roleId }, secretKey, { expiresIn: '7d' });
+            const token = jwt.sign({ userId: user._id, roleId: user.roleId}, secretKey, { expiresIn: '7d' });
 
             // localStorage.setItem('token', token);
             req.session.token = token;

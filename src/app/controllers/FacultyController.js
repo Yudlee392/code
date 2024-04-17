@@ -20,10 +20,13 @@ class FacultyController {
     async viewFaculties(req, res, next) {
         try {
             const faculties = await Faculty.find({});
+            const username = req.userName;
+
             res.render('faculty/view', {
                 faculties: mutipleMongooseToObjects(faculties),
                 authen: 'admin',
-                activePage: 'faculty'
+                activePage: 'faculty',
+                username,
             });
         } catch (error) {
             next(error);
@@ -42,9 +45,13 @@ class FacultyController {
 
     //[GET] /admin/faculties/:id/edit
     editFaculty(req, res, next) {
+        const username = req.userName;
         Faculty.findById(req.params.id)
             .then(faculty => res.render('faculty/edit', {
-                faculty: mongoseToObject(faculty)
+                faculty: mongoseToObject(faculty),
+                authen: "admin",
+                username,
+
             }))
             .catch(error => next(error));
     }
