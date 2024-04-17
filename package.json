@@ -32,6 +32,7 @@
   "dependencies": {
     "archiver": "^7.0.1",
     "bcrypt": "^5.1.1",
+    "bootstrap-icons": "^1.11.3",
     "canvas": "^2.11.2",
     "chart.js": "^4.4.2",
     "cookie-parser": "^1.4.6",
@@ -44,7 +45,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^5.9.27",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.13"
+    "nodemailer": "^6.9.13",
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "lint-staged": "^13.2.3",

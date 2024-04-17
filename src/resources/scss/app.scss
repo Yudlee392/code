@@ -1,17 +1,17 @@
-@import 'variables';
+@import "variables";
 
 h1 {
-    color: gray;
+  color: gray;
 }
 
 h2 {
-    color: $red-color;
+  color: $red-color;
 }
 
 .card-course-item {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .green-border {
-    border: 1px solid green;
+  border: 1px solid green;
 }

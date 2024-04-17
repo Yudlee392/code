@@ -1,4 +1,11 @@
 <div class="container">
+  {{#if errorMessage}}
+    <div class="mt-2 alert alert-danger" role="alert">
+      <span class="fas fa-exclamation-circle mr-1"></span>
+      {{errorMessage}}
+    </div>
+  {{/if}}
+
   <div class="row justify-content-center">
     <!-- Phần hiển thị hình ảnh -->
     <div class="col-md-6 d-none d-md-block">
@@ -9,8 +16,6 @@
         style="object-fit: cover;"
       />
     </div>
-
-    <!-- Phần biểu mẫu đăng nhập -->
     <div class="col-md-6">
       <div class="card border-0 shadow rounded-3 my-5 bg-light">
         <div class="card-body p-4 p-sm-5">
