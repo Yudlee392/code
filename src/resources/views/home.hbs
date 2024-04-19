@@ -1,26 +1,89 @@
 <body>
-    {{!-- <h1>Submissions by Faculty</h1> --}}
-            {{!-- {{#each magazines}}
-                    <h2>{{this.title}}</h2>
-
-                    {{/each}} --}}
     <div class="w-full">
-    <img src="https://oecglobal.com/images/stories/PDF/University_of_Greenwich_logo.png" alt="Greenwich" class="w-60 h-30 object-cover" />
+       <div class="d-flex flex-column justify-content-center">
+ <section class="hero">
+  <div class="hero-content d-flex flex-column justify-content-center align-items-center text-center">
+    <h1 class="fw-bold display-4">Empower Your Learning Journey</h1>
+    <p class="text-muted">Explore a wide range of courses, personalize your learning path, and track your progress as you gain valuable skills and knowledge.</p>
+    <button class="btn btn-lg btn-primary">
+      <a href="/courses" class="text-white">Get Started Today!</a>
+    </button>
+  </div>
+
+   <div class="video-container d-flex flex-column align-items-center mt-5">
+    <h3 class="text-center mb-3">See What You Can Learn</h3>  <div class="iframe-wrapper d-flex justify-content-center"> <iframe width="700" height="400" src="https://www.youtube.com/embed/I7lucRNvINY?si=VpTmdyunVLj5jF9-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+
+<section class="features d-flex flex-wrap justify-content-center py-5">
+  <div class="feature-card card m-2 shadow-sm rounded overflow-hidden text-center">
+    <img src="https://freecoursesinengland.co.uk/wp-content/uploads/2021/06/Free-Online-Equality-and-Diversity-Course-with-Certificate.png" alt="Courses" class="img-thumbnail card-img-top" style="height: 150px;">
+    <h3>Explore Diverse Courses</h3>
+    <p>Choose from a vast selection of courses covering various subjects and skillsets.</p>
+    <a href="#" class="btn btn-primary stretched-link">Learn More</a>
+  </div>
+  <div class="feature-card card m-2 shadow-sm rounded overflow-hidden text-center">
+    <img src="https://images.ctfassets.net/p0qf7j048i0q/9A08FC7A9F124E2B80C5F4540E9CD0F7/1287f9dfa2a817b3e5ba338f6c1944ef/i83770283.jpg" alt="Personalization" class="img-thumbnail card-img-top" style="height: 150px;">
+    <h3>Personalized Learning</h3>
+    <p>Create a tailored learning path that aligns with your goals and interests.</p>
+    <a href="#" class="btn btn-primary stretched-link">Learn More</a>
+  </div>
+  <div class="feature-card card m-2 shadow-sm rounded overflow-hidden text-center">
+    <img src="https://qph.cf2.quoracdn.net/main-qimg-e4cc6f0e157ac481f1bd4be4be199c4b" alt="Progress Tracking" class="img-thumbnail card-img-top" style="height: 150px;">
+    <h3>Track Your Progress</h3>
+    <p>Monitor your learning progress, earn badges, and achieve certifications.</p>
+    <a href="#" class="btn btn-primary stretched-link">Learn More</a>
+  </div>
+  <div class="feature-card card m-2 shadow-sm rounded overflow-hidden text-center">
+    <img src="https://www.agilitypr.com/wp-content/uploads/2023/04/community.jpg" alt="Engaging Community" class="img-thumbnail card-img-top" style="height: 150px;">
+    <h3>Engaging Community</h3>
+    <p>Connect with fellow learners, share ideas, and find support.</p>
+    <a href="#" class="btn btn-primary stretched-link">Learn More</a>
+  </div>
+</section>
+
+
+<section class="testimonials py-5">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <div class="testimonial-left col-md-6">
+      <h2>What Learners Say</h2>
+      <div class="card mb-4 shadow rounded">
+        <div class="d-flex align-items-center">
+          <img src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp" alt="Sarah J." class="rounded-circle shadow-4-strong mr-3">
+          <div class="card-body">
+            <p>"DuckDuy LMS has transformed my learning experience. The interactive courses and personalized approach have helped me master new skills quickly and effectively." - Sarah J., Student</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-right col-md-6">
+      <div class="card mb-4 shadow rounded">
+        <div class="d-flex align-items-center">
+          <img src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp" alt="John Doe" class="rounded-circle shadow-4-strong mr-3">
+          <div class="card-body">
+            <p>"As a busy professional, DuckDuy LMS has been a lifesaver. The flexible scheduling and mobile access allow me to learn at my own pace, even on the go. I've already seen a significant improvement in my work performance." - John Doe, Manager</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    </div>
     </div>
     <h2 class="text-4xl font-bold text-center text-zinc-800 dark:text-white py-8">Course</h2>
    {{#each faculties}}
     <h2>{{this.name}}</h2>
     {{#each magazines}}
-        {{!-- Debugging: Print the current magazine object to see its properties --}}
         <pre>{{json this}}</pre>
-
-        {{!-- Now check if title is present in the current context --}}
         <h2>{{title}}</h2>
-        {{#ifEquals this.faculty ../faculty}} <!-- Check if the magazine belongs to the current faculty -->
+        {{#ifEquals this.faculty ../faculty}} 
             <h3>{{title}}</h3>
             <ul>
-                {{#each submissions}} <!-- Iterate over submissions of the current magazine -->
-                    {{#ifEquals this.magazine ../magazine}} <!-- Check if the submission belongs to the current magazine -->
+                {{#each submissions}} 
+                    {{#ifEquals this.magazine ../magazine}} 
                         <li>
                             <h4>{{title}}</h4>
                             <p>Submitted by: {{student.name}}</p>
