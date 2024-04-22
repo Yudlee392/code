@@ -1,55 +1,58 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="mb-0">Edit Submission's Status</h2>
-                </div>
-                <div class="card-body">
-                    <form action="/coordinator/submission/{{submission._id}}/edit" method="POST">
-                        <div class="form-group">
-                            <label for="title">Title:</label>
-                            <span class="form-control">{{submission.title}}</span>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="title">Student Name:</label>
-                            <span class="form-control">{{submission.student.fullName}}</span>
-
-                        </div>
-                        <div class="form-group">
-                            <label>Image:</label>
-                            <!-- Display image from imagePath -->
-                            <img src="{{viewImageLink}}" class="img-fluid" alt="Submission Image">
-                        </div>
-                        <div class="form-group">
-                            <label>Doc:</label>
-                            <a href="{{viewDocLink}}" target="_blank">View Document</a>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="comment">Comment:</label>
-                            <!-- Replace input with textarea -->
-                            <textarea class="form-control" id="comment" name="comment" maxlength="255"
-                                required>{{submission.comment}}</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="status">Status:</label>
-                            <select class="form-control" id="status" name="status" required>
-                                <option value="Submitted" {{#ifEquals submission.status "Submitted"
-                                    }}selected{{/ifEquals}}>Submitted</option>
-                                <option value="Rejected" {{#ifEquals submission.status "Rejected"
-                                    }}selected{{/ifEquals}}>Rejected</option>
-                                <option value="Approved" {{#ifEquals submission.status "Approved"
-                                    }}selected{{/ifEquals}}>Approved</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Update Submission's Status</button>
-                    </form>
-                </div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card border-primary shadow">
+        <div class="card-header bg-primary text-white">
+          <h2 class="mb-0">Edit Submission's Status</h2>
         </div>
+        <div class="card-body">
+          <form action="/coordinator/submission/{{submission._id}}/edit" method="POST">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <th scope="row">Title:</th>
+                  <td><span class="text-muted">{{submission.title}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Student Name:</th>
+                  <td><span class="text-muted">{{submission.student.fullName}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Image:</th>
+                  <td>
+                    <img src="{{viewImageLink}}" class="img-fluid rounded" style="max-height: 300px;" alt="Submission Image">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Document:</th>
+                  <td>
+                    <a href="{{viewDocLink}}" target="_blank" class="btn btn-sm btn-outline-primary">View Document</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Comment:</th>
+                  <td>
+                    <textarea class="form-control" id="comment" name="comment" maxlength="255" required>{{submission.comment}}</textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Status:</th>
+                  <td>
+                    <select class="form-select rounded-pill shadow-sm" id="status" name="status" required>
+                      <option value="Submitted" {{#ifEquals submission.status "Submitted" }}selected{{/ifEquals}}>Submitted</option>
+                      <option value="Rejected" {{#ifEquals submission.status "Rejected" }}selected{{/ifEquals}}>Rejected</option>
+                      <option value="Approved" {{#ifEquals submission.status "Approved" }}selected{{/ifEquals}}>Approved</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-end mt-3">
+              <button type="submit" class="btn btn-primary">Update Submission's Status</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

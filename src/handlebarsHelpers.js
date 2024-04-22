@@ -24,11 +24,8 @@ const helpers = {
     return `${year}-${month}-${day}`;
   },
   ifEquals: function (arg1, arg2, options) {
-    console.log("arg1", arg1, "arg2", arg2, arg1 == arg2);
     try {
       if (arg1.toString() == arg2.toString()) {
-        console.log("good");
-
         return options.fn(this);
       }
     } catch {

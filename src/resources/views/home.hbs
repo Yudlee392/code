@@ -1,41 +1,5 @@
 <body>
-   {{#each faculties}}
-    <h1>{{name}}</h1>
-    {{#each ../magazines}}
-    {{!-- Debugging: Print the current magazine object to see its properties --}}
-
-    {{!-- Now check if title is present in the current context --}}
-    {{!-- <h2>{{title}} {{faculty}} {{../_id}}</h2> --}}
-    {{#ifEquals faculty ../_id}} <!-- Check if the magazine belongs to the current faculty -->
-    <h3>{{title}}</h3>
-    <ul>
-        <div class="row">
-
-            {{#each ../../submissions}} <!-- Iterate over submissions of the current magazine -->
-            {{#ifEquals magazine ../_id}} <!-- Check if the submission belongs to the current magazine -->
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{viewImageLink}}" class="card-img-top" alt="..."
-                        style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{title}}</h5>
-                        <p class="card-text">Submitted by: {{student.fullName}}</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="{{viewDocLink}}" class="btn btn-primary">Download Document</a>
-                    </div>
-                </div>
-            </div>
-            {{/ifEquals}}
-            {{/each}}
-        </div>
-    </ul>
-    {{/ifEquals}}
-    {{/each}}
-    {{/each}}
-    <div class="w-full">
-       <div class="d-flex flex-column justify-content-center">
- <section class="hero">
+   <section class="hero">
   <div class="hero-content d-flex flex-column justify-content-center align-items-center text-center">
     <h1 class="fw-bold display-4">Empower Your Learning Journey</h1>
     <p class="text-muted">Explore a wide range of courses, personalize your learning path, and track your progress as you gain valuable skills and knowledge.</p>
@@ -104,10 +68,43 @@
     </div>
   </div>
 </section>
+   {{#each faculties}}
+    <h1>{{name}}</h1>
+    <ul>
+        <div class="row">
+
+    {{#each ../magazines}}
+    {{#ifEquals faculty ../_id}} <!-- Check if the magazine belongs to the current faculty -->
+    
+            {{#each ../../submissions}} <!-- Iterate over submissions of the current magazine -->
+            {{#ifEquals magazine ../_id}} <!-- Check if the submission belongs to the current magazine -->
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{viewImageLink}}" class="card-img-top" alt="..."
+                        style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-text">Submitted by: {{student.fullName}}</p>
+                        <p class="card-text">Submitted to Magazine: {{../title}}</p>
+                        <a href="{{viewDocLink}}" class="btn btn-primary">Download Document</a>
+                    </div>
+                </div>
+            </div>
+            {{/ifEquals}}
+            {{/each}}
+  
+    {{/ifEquals}}
+    {{/each}}
+          </div>
+    </ul>
+    {{/each}}
+    <div class="w-full">
+       <div class="d-flex flex-column justify-content-center">
+
 
     </div>
     </div>
-    <h2 class="text-4xl font-bold text-center text-zinc-800 dark:text-white py-8">Course</h2>
+    {{!-- <h2 class="text-4xl font-bold text-center text-zinc-800 dark:text-white py-8">Course</h2>
    {{#each faculties}}
     <h2>{{this.name}}</h2>
     {{#each magazines}}
@@ -139,8 +136,5 @@
             </ul>
         {{/ifEquals}}
     {{/each}}
-{{/each}}
-
-
-    <!-- Helper to check equality -->
+{{/each}} --}}
 </body>

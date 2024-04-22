@@ -1,50 +1,110 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="mb-0">Edit Submission</h2>
-                </div>
-                <div class="card-body">
-                    <form action="/student/submission/{{submission._id}}/edit" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="title">Title:</label>
-                            <input type="text" class="form-control" id="title" name="title" value="{{submission.title}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Image:</label>
-                            <img src="{{viewImageLink}}" class="img-fluid" alt="Submission Image">
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label for="imageFile">Select New Image File:</label>
-                            <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
-                        </div>
-                        <div class="form-group">
-                            <label>Doc:</label>
-                            <a href="{{viewDocLink}}" target="_blank">View Document</a>
-                        </div>
-                        <div class="form-group">
-                            <label for="docFile">Select New .doc File:</label>
-                            <input type="file" class="form-control-file" id="document" name="document"
-                                accept=".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                        </div>
-                        <div class="form-group">
-                            <label for="comment">Comment:</label>
-                            <span class="form-control">{{submission.comment}}</span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="status">Status:</label>
-                            <span class="form-control">{{submission.status}}</span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Update Submission</button>
-                    </form>
-                </div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card border-primary shadow">
+        <div class="card-header bg-primary text-white">
+          <h2 class="mb-0 text-center">
+            Edit Submission
+          </h2>
         </div>
+        <div class="card-body">
+          <form
+            action="/student/submission/{{submission._id}}/edit"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group mb-3">
+              <label for="title" class="form-label">
+                Title:
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                value="{{submission.title}}"
+                style="font-size: 16px;"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="image" class="form-label">
+                Image:
+              </label>
+              <img
+                src="{{viewImageLink}}"
+                class="img-fluid"
+                style="max-height: 300px;"
+                alt="Submission Image"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="image" class="form-label">
+                Select New Image File:
+              </label>
+
+              <input
+                type="file"
+                class="form-control"
+                id="image"
+                name="image"
+                accept="image/*"
+                style="font-size: 16px;"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="document" class="form-label">
+                Doc:
+              </label>
+              <a
+                href="{{viewDocLink}}"
+                target="_blank"
+                class="btn btn-outline-primary"
+              >
+                View Document
+              </a>
+            </div>
+            <div class="form-group mb-3">
+              <label for="document" class="form-label">
+                Select New .doc File:
+              </label>
+              <input
+                type="file"
+                class="form-control"
+                id="document"
+                name="document"
+                accept=".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                style="font-size: 16px;"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="comment" class="form-label">
+                Comment:
+              </label>
+              <textarea
+                class="form-control"
+                id="comment"
+                name="comment"
+                rows="3"
+                style="font-size: 16px;"
+              >
+                {{submission.comment}}
+              </textarea>
+            </div>
+            <div class="form-group mb-3">
+              <label for="status" class="form-label">
+                Status:
+              </label>
+              <span class="form-control" style="font-size: 16px;">
+                {{submission.status}}
+              </span>
+            </div>
+            <button type="submit" class="btn btn-primary rounded-pill">
+              Update Submission
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

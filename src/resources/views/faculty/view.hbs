@@ -1,5 +1,7 @@
 <div class="container mt-4">
-  <h1 class="text-center mb-4">Manage Faculty</h1>
+  <h1 class="text-center mb-4">
+    Manage Faculty
+  </h1>
   <div class="row mt-4">
     <div class="col-md-6 offset-md-3">
       <div class="card">
@@ -15,10 +17,14 @@
         </div>
         <div id="addFacultyForm" class="collapse">
           <div class="card-body">
-            <h3 class="text-center mb-4">Add Faculty</h3>
+            <h3 class="text-center mb-4">
+              Add Faculty
+            </h3>
             <form id="facultyForm" action="/admin/faculty/create" method="POST">
               <div class="form-group">
-                <label for="name">Name:</label>
+                <label for="name">
+                  Name:
+                </label>
                 <input
                   type="text"
                   class="form-control rounded-pill shadow-sm"
@@ -29,7 +35,9 @@
                 />
               </div>
               <div class="form-group">
-                <label for="description">Description:</label>
+                <label for="description">
+                  Description:
+                </label>
                 <textarea
                   class="form-control rounded-pill shadow-sm"
                   id="description"
@@ -42,7 +50,9 @@
                 <button
                   type="submit"
                   class="btn btn-primary rounded-pill shadow"
-                >Add</button>
+                >
+                  Add
+                </button>
               </div>
             </form>
           </div>
@@ -52,7 +62,9 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h2>Faculties</h2>
+      <h2>
+        Faculties
+      </h2>
       <div class="table-responsive">
         <table
           class="table table-hover table-bordered text-center rounded shadow"
@@ -60,25 +72,34 @@
         >
           <thead class="thead-light">
             <tr>
-              <th scope="col" style="background-color: #e9ecef;">Name</th>
-              <th
-                scope="col"
-                style="background-color: #e4e9f0;"
-              >Description</th>
-              <th scope="col" style="background-color: #d8e4e8;">Action</th>
+              <th scope="col" style="background-color: #e9ecef;">
+                Name
+              </th>
+              <th scope="col" style="background-color: #e4e9f0;">
+                Description
+              </th>
+              <th scope="col" style="background-color: #d8e4e8;">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             {{#each faculties}}
               <tr class="table-hover">
-                <td>{{this.name}}</td>
-                <td>{{this.description}}</td>
+                <td>
+                  {{this.name}}
+                </td>
+                <td>
+                  {{this.description}}
+                </td>
                 <td>
                   <a
                     href="./{{this._id}}/edit"
                     class="btn btn-sm btn-primary rounded-pill shadow mr-2"
-                  >Edit</a>
-                  <form
+                  >
+                    Edit
+                  </a>
+                  {{!-- <form
                     action="./{{this._id}}/delete"
                     method="POST"
                     style="display: inline;"
@@ -87,7 +108,7 @@
                       type="submit"
                       class="btn btn-sm btn-danger rounded-pill shadow"
                     >Delete</button>
-                  </form>
+                  </form> --}}
                 </td>
               </tr>
             {{/each}}
@@ -96,7 +117,6 @@
       </div>
     </div>
   </div>
-
 </div>
 <script>
   function toggleAddFacultyForm() { var form =

@@ -1,5 +1,7 @@
-<div class="container mt-4">
-  <h1 class="text-center mb-4">Manage Academic Years</h1>
+<div class="container mt-4 pb-10">
+  <h1 class="text-center mb-4">
+    Manage Academic Years
+  </h1>
   <div class="row mt-4 justify-content-center">
     <div class="col-md-6 shadow-sm p-4 rounded bg-light">
       <div class="text-center mb-4">
@@ -14,9 +16,13 @@
       </div>
       <div id="academicYearForm" class="collapse">
         <form id="academicYearForm" action="./create" method="POST">
-          <h3 class="mb-3 text-center">Add Academic Year</h3>
+          <h3 class="mb-3 text-center">
+            Add Academic Year
+          </h3>
           <div class="form-group">
-            <label for="name">Name:</label>
+            <label for="name">
+              Name:
+            </label>
             <input
               type="text"
               class="form-control rounded-pill shadow-sm"
@@ -27,7 +33,9 @@
             />
           </div>
           <div class="form-group">
-            <label for="startDate">Start Date:</label>
+            <label for="startDate">
+              Start Date:
+            </label>
             <input
               type="date"
               class="form-control rounded-pill shadow-sm"
@@ -37,7 +45,9 @@
             />
           </div>
           <div class="form-group">
-            <label for="closureDate">Closure Date:</label>
+            <label for="closureDate">
+              Closure Date:
+            </label>
             <input
               type="date"
               class="form-control rounded-pill shadow-sm"
@@ -47,7 +57,9 @@
             />
           </div>
           <div class="form-group">
-            <label for="finalClosureDate">Final Closure Date:</label>
+            <label for="finalClosureDate">
+              Final Closure Date:
+            </label>
             <input
               type="date"
               class="form-control rounded-pill shadow-sm"
@@ -57,10 +69,9 @@
             />
           </div>
           <div class="text-center">
-            <button
-              type="submit"
-              class="btn btn-primary rounded-pill shadow"
-            >Add</button>
+            <button type="submit" class="btn btn-primary rounded-pill shadow">
+              Add
+            </button>
           </div>
         </form>
       </div>
@@ -70,7 +81,9 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h2>Academic Years</h2>
+    <h2>
+      Academic Years
+    </h2>
     <div class="table-responsive">
       <table
         class="table table-hover table-bordered text-center"
@@ -78,36 +91,54 @@
       >
         <thead class="thead-light">
           <tr>
-            <th scope="col" style="background-color: #e9ecef;">Name</th>
-            <th scope="col" style="background-color: #e4e9f0;">Start Date</th>
-            <th scope="col" style="background-color: #dee2e6;">Closure Date</th>
-            <th scope="col" style="background-color: #d8e4e8;">Final Closure
-              Date</th>
-            <th scope="col" style="background-color: #c3ced2;">Action</th>
+            <th scope="col" style="background-color: #e9ecef;">
+              Name
+            </th>
+            <th scope="col" style="background-color: #e4e9f0;">
+              Start Date
+            </th>
+            <th scope="col" style="background-color: #dee2e6;">
+              Closure Date
+            </th>
+            <th scope="col" style="background-color: #d8e4e8;">
+              Final Closure Date
+            </th>
+            <th scope="col" style="background-color: #c3ced2;">
+              Action
+            </th>
           </tr>
         </thead>
         <tbody>
           {{#each academicYears}}
             <tr class="table-active">
-              <td>{{this.name}}</td>
-              <td>{{formatDateForView this.startDate}}</td>
-              <td>{{formatDateForView this.closureDate}}</td>
-              <td>{{formatDateForView this.finalClosureDate}}</td>
+              <td>
+                {{this.name}}
+              </td>
+              <td>
+                {{formatDateForView this.startDate}}
+              </td>
+              <td>
+                {{formatDateForView this.closureDate}}
+              </td>
+              <td>
+                {{formatDateForView this.finalClosureDate}}
+              </td>
               <td>
                 <a
                   href="./{{this._id}}/edit"
                   class="btn btn-sm btn-primary mr-2"
-                >Edit</a>
-                <form
+                >
+                  Edit
+                </a>
+                {{!-- <form
                   action="./{{this._id}}/delete"
                   method="POST"
                   style="display: inline;"
                 >
-                  <button
-                    type="submit"
-                    class="btn btn-sm btn-danger"
-                  >Delete</button>
-                </form>
+                  <button type="submit" class="btn btn-sm btn-danger">
+                    Delete
+                  </button>
+                </form> --}}
               </td>
             </tr>
           {{/each}}

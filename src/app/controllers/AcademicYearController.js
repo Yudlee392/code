@@ -65,72 +65,74 @@ class AcademicYearController {
   async chart(req, res, next) {
     const username = req.userName;
 
-    const academicYears = await AcademicYear.find().sort({ startDate: 1 });
-    const faculties = await Faculty.find();
+    try {
+        const academicYears = await AcademicYear.find().sort({ startDate: 1 });
+        const faculties = await Faculty.find();
 
-    // Initialize an array to store chart data
-    const chartData = [];
+        const chartData = [];
 
-    // Loop through each academic year
-    for (const academicYear of academicYears) {
-      // Fetch all magazines for all faculties within the current academic year
-      const magazines = await Magazine.find({ academicYear: academicYear._id });
-
-      // Loop through each faculty
-      for (const faculty of faculties) {
-        // Filter magazines for the current faculty
-        const facultyMagazines = magazines.filter((magazine) =>
-          magazine.faculty.equals(faculty._id)
-        );
-
-        // Count total submissions and unique students for all magazines of the current faculty within the academic year
-        const aggregationPipeline = [
-          {
-            $match: {
-              magazine: {
-                $in: facultyMagazines.map((magazine) => magazine._id),
-              },
-            },
-          },
-          {
-            $group: {
-              _id: "$student", // Group by student
-              count: { $sum: 1 }, // Count submissions for each student
-            },
-          },
-          {
-            $group: {
-              _id: null,
-              totalSubmissions: { $sum: "$count" }, // Total submissions for the faculty
-              uniqueStudents: { $sum: 1 }, // Count unique students
-            },
-          },
-        ];
-
-        const result = await Submission.aggregate(aggregationPipeline);
-
-        // Extract total submissions and unique students from the aggregation result
-        const totalSubmissions =
-          result.length > 0 ? result[0].totalSubmissions : 0;
-        const uniqueStudents = result.length > 0 ? result[0].uniqueStudents : 0;
-
-        // Add data for the current faculty and academic year to chartData array
-        chartData.push({
-          academicYear: academicYear.name,
-          faculty: faculty.name,
-          totalSubmissions: totalSubmissions,
-          uniqueStudents: uniqueStudents,
+        // Fetch magazines for all academic years and faculties concurrently
+        const magazinePromises = academicYears.map(async academicYear => {
+            const magazines = await Magazine.find({ academicYear: academicYear._id });
+            return { academicYear, magazines };
         });
-      }
+
+        const results = await Promise.all(magazinePromises);
+
+        for (const { academicYear, magazines } of results) {
+            const aggregationPromises = faculties.map(async faculty => {
+                const facultyMagazines = magazines.filter(magazine => magazine.faculty.equals(faculty._id));
+
+                const aggregationPipeline = [
+                    {
+                        $match: {
+                            magazine: { $in: facultyMagazines.map(magazine => magazine._id) }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: "$student",
+                            count: { $sum: 1 }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            totalSubmissions: { $sum: "$count" },
+                            uniqueStudents: { $sum: 1 }
+                        }
+                    }
+                ];
+
+                const result = await Submission.aggregate(aggregationPipeline);
+                const totalSubmissions = result.length > 0 ? result[0].totalSubmissions : 0;
+                const uniqueStudents = result.length > 0 ? result[0].uniqueStudents : 0;
+
+                return {
+                    academicYear: academicYear.name,
+                    faculty: faculty.name,
+                    totalSubmissions,
+                    uniqueStudents
+                };
+            });
+
+            const facultyData = await Promise.all(aggregationPromises);
+            chartData.push(...facultyData);
+        }
+
+        res.render("chart", {
+            chartData,
+            authen: "admin",
+            activePage: "chart",
+            username,
+        });
+    } catch (error) {
+        console.error("Error fetching chart data:", error);
+        // Handle error
+        res.status(500).send("Internal Server Error");
     }
-    // Render the chart view with chartData
-    res.render("chart", {
-      chartData,
-      authen: "admin",
-      activePage: "chart",
-      username,
-    });
-  }
+}
+
 }
 
 module.exports = new AcademicYearController();

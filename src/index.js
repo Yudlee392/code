@@ -3,7 +3,7 @@ var createError = require("http-errors");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const helpers = require("./handlebarsHelpers");
-const sslRedirect = require('heroku-ssl-redirect').default;
+const sslRedirect = require("heroku-ssl-redirect").default;
 
 //store token
 var cookieParser = require("cookie-parser");
@@ -15,7 +15,7 @@ app.use(
     resave: true,
     saveUninitialized: false,
     secret: "long_string_for_secret",
-    cookie: { maxAge: 300000 },
+    cookie: { maxAge: 1500000 },
   })
 );
 app.use(cookieParser());
