@@ -5,6 +5,9 @@ const {
 const Magazine = require("../models/Magazine");
 const AcademicYear = require("../models/AcademicYear");
 const Faculty = require("../models/Faculty");
+const Submission = require("../models/Submission");
+const path = require("path");
+const { downloadAndGenerateLink } = require("../../config/firebase");
 
 class MagazineController {
   async createMagazineForm(req, res) {
@@ -18,7 +21,7 @@ class MagazineController {
         activePage: "magazine",
         academicYears: mutipleMongooseToObjects(academicYears),
         faculties: mutipleMongooseToObjects(faculties),
-        username
+        username,
       });
     } catch (error) {
       next(error);
@@ -40,9 +43,9 @@ class MagazineController {
   //[GET] /admin/magazine/view
   async viewMagazines(req, res, next) {
     try {
-
       const page = req.query.page || 1; // Default to page 1 if no page parameter is provided
       const perPage = 10; // Number of items per page
+
       const academicYears = await AcademicYear.find({});
       const faculties = await Faculty.find({});
 
@@ -50,12 +53,30 @@ class MagazineController {
       const totalPages = Math.ceil(totalMagazines / perPage);
       const startIndex = (page - 1) * perPage;
 
+      const submissions = await Submission.find({});
       const magazines = await Magazine.find({})
         .populate("faculty")
         .populate("academicYear")
         .sort({ academicYear: 1, faculty: 1 })
         .skip(startIndex)
         .limit(perPage);
+
+      const magazinesObject = {};
+      magazines.forEach((magazine) => {
+        magazinesObject[magazine._id.toString()] = {
+          ...magazine.toObject(),
+          totalSubmissions: 0,
+        };
+      });
+
+      // Count the total submissions for each magazine
+      submissions.forEach((submission) => {
+        const magazineId = submission.magazine.toString(); // Assuming you have a field called "magazine" in Submission model
+        if (magazinesObject[magazineId]) {
+          magazinesObject[magazineId].totalSubmissions++;
+        }
+      });
+
       const pages = [];
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
@@ -63,7 +84,7 @@ class MagazineController {
       const username = req.userName;
 
       res.render("magazine/view", {
-        magazines: mutipleMongooseToObjects(magazines),
+        magazines: magazinesObject,
         authen: "manager",
         activePage: "magazine",
         academicYears: mutipleMongooseToObjects(academicYears),
@@ -99,14 +120,14 @@ class MagazineController {
         magazine: mongoseToObject(magazine),
         academicYears,
         faculties,
-        username
+        username,
       });
     } catch (error) {
       next(error);
     }
   }
 
-  //[POST] /admin/magazines/:id/update
+  //[POST] /magazines/:id/update
   async updateMagazine(req, res, next) {
     try {
       const { title, academicYear, faculty } = req.body;
@@ -119,6 +140,58 @@ class MagazineController {
       next(error);
     }
   }
+  //[post] /download/
+  async downloadMagazines(req, res, next) {
+    const filePath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "temp",
+      "downloaded_files.zip"
+    );
+    try {
+      res.setHeader("Content-Disposition", "attachment; filename=file.zip");
+      res.sendFile(filePath);
+    } catch (error) {
+      console.error("Error generating download link:", error);
+    }
+  }
+  async confirmDownload(req, res, next) {
+    const id = req.params.id;
+    const submissions = await Submission.find({ magazine: id }).populate(
+      "student"
+    );
+
+    //find submission have magazine=id
+    const filePath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "temp",
+      "downloaded_files.zip"
+    );
+    try {
+      // Call downloadAndGenerateLink and wait for it to complete
+      const username = req.userName;
+
+      const downloadLink = await downloadAndGenerateLink(submissions);
+      res.render("magazine/confirmDownload", {
+        username,
+        authen: "manager",
+      });
+    } catch (error) {
+      console.error("Error generating download link:", error);
+    }
+  }
+}
+function deleteFile(filePath) {
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error("Error deleting file:", err);
+    } else {
+      console.log("File deleted successfully:", filePath);
+    }
+  });
 }
 
 module.exports = new MagazineController();

@@ -16,7 +16,7 @@
                             <label for="academicYear">Academic Year:</label>
                             <select class="form-control" id="academicYear" name="academicYear" required>
                                 {{#each academicYears}}
-                                    <option value="{{this._id}}">{{this.name}}</option>
+                                <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
                             </select>
                         </div>
@@ -25,7 +25,7 @@
                             <label for="faculty">Faculty:</label>
                             <select class="form-control" id="faculty" name="faculty" required>
                                 {{#each faculties}}
-                                    <option value="{{this._id}}">{{this.name}}</option>
+                                <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
                             </select>
                         </div>
@@ -42,34 +42,37 @@
         </div>
     </div>
 
-   <div class="row mt-4">
-    <div class="col-md-12">
-        <!-- Table for viewing all magazines -->
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Title</th>
-                        <th>Academic Year</th>
-                        <th>Faculty</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each magazines}}
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <!-- Table for viewing all magazines -->
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Title</th>
+                            <th>Academic Year</th>
+                            <th>Faculty</th>
+                            <th>Total Submissions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each magazines}}
                         <tr>
                             <td>{{title}}</td>
                             <td>{{academicYear.name}}</td>
                             <td>{{faculty.name}}</td>
+                            <td>{{totalSubmissions}} <a href="./confirm-download/{{this._id}}"
+                                    class="btn btn-sm btn-primary mr-2"> Download All</a></td>
                         </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Pagination -->
-<nav aria-label="Page navigation">
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {{#if (gt totalPages 1)}}
             {{#if (gt currentPage 1)}}
@@ -87,13 +90,13 @@
             {{/if}}
         </ul>
     </nav>
-<script>
-    function toggleAddMagazineForm() {
-        var form = document.getElementById("magazineForm");
-        if (form.style.display === "none") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
+    <script>
+        function toggleAddMagazineForm() {
+            var form = document.getElementById("magazineForm");
+            if (form.style.display === "none") {
+                form.style.display = "block";
+            } else {
+                form.style.display = "none";
+            }
         }
-    }
-</script>
+    </script>

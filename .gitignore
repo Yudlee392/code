@@ -8,3 +8,4 @@ package-lock.json
 src/resources/views/.DS_Store
 .DS_Store
 **/.DS_Store
+src/temp/downloaded_files.zip
