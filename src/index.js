@@ -1,10 +1,8 @@
 const path = require("path");
-var createError = require("http-errors");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const helpers = require("./handlebarsHelpers");
 const sslRedirect = require("heroku-ssl-redirect").default;
-
 //store token
 var cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -61,4 +59,7 @@ app.use(express.json());
 route(app);
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
+});
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
