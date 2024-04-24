@@ -38,7 +38,7 @@
                 <tr>
                   <th scope="row">Status:</th>
                   <td>
-                    <select class="form-select rounded-pill shadow-sm" id="status" name="status" required>
+                    <select  class="form-select rounded-pill shadow-sm" id="status" name="status" required>
                       <option value="Submitted" {{#ifEquals submission.status "Submitted" }}selected{{/ifEquals}}>Submitted</option>
                       <option value="Rejected" {{#ifEquals submission.status "Rejected" }}selected{{/ifEquals}}>Rejected</option>
                       <option value="Approved" {{#ifEquals submission.status "Approved" }}selected{{/ifEquals}}>Approved</option>
