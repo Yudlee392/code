@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const helpers = require("./handlebarsHelpers");
-const sslRedirect = require("heroku-ssl-redirect").default;
+// const sslRedirect = require("heroku-ssl-redirect").default;
 //store token
 var cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -17,7 +17,7 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(sslRedirect());
+// app.use(sslRedirect());
 
 const port = process.env.PORT || 3000;
 process.env.TZ = "UTC";
